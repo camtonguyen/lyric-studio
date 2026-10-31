@@ -1,6 +1,6 @@
 /** Ending title card + film look (vignette, grain). */
 import { FONT, H, W } from "./constants";
-import { rng } from "./math";
+import { rng } from "../shared/math";
 import type { Settings } from "../project/types";
 
 function makeVignette() {

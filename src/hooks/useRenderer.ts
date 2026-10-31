@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { Renderer, loadCover, loadFonts, type Model } from "../engine";
-import type { Player } from "../player/Player";
+import type { Player } from "../audio/Player";
 
 /** Mounts the engine on a canvas and redraws whenever time or the model changes. */
 export function useRenderer(canvasRef: RefObject<HTMLCanvasElement>, model: Model, player: Player) {

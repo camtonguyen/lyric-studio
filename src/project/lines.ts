@@ -2,8 +2,8 @@
  * The lyric lines: one record per line (text, verse break, who types it, timing).
  * Every edit goes through here so text, names and times can't drift out of step.
  */
-import { round2 } from "../engine/math";
-import type { Segment } from "./transcribe";
+import { round2 } from "../shared/math";
+import type { Segment } from "../audio/transcribe";
 
 export interface LyricLine {
   text: string;

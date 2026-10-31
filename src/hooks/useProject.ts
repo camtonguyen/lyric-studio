@@ -3,7 +3,7 @@ import { exampleProject } from "../project/defaults";
 import { linesFromSegments, patchLine, removeLine, type LyricLine } from "../project/lines";
 import { loadSavedProject, saveProject } from "../project/storage";
 import { fitDuration, trimToLyrics } from "../project/timing";
-import type { Segment } from "../project/transcribe";
+import type { Segment } from "../audio/transcribe";
 import type { EndingSettings, GitLogSettings, Project, Settings, StyleSettings } from "../project/types";
 
 type Action =

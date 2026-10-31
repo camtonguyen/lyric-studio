@@ -3,10 +3,10 @@
  * and every operation that rewrites durations or starts (fit to song, trim, even spread).
  * Pure functions on a Project; the engine only reads the result.
  */
-import { lyricToCode } from "../engine/lyrics";
-import { round2 } from "../engine/math";
+import { lyricToCode } from "../shared/lyrics";
+import { round2 } from "../shared/math";
 import { isLastInVerse, verseIndexes, type LyricLine } from "./lines";
-import { hasGitLog } from "./template";
+import { hasGitLog } from "../shared/template";
 import type { Project, Settings } from "./types";
 
 const TAIL = 1.5; // seconds kept after the last audible sound

@@ -2,7 +2,7 @@
  * Playback clock + song. Plays the MP3 (if loaded) or runs a silent clock.
  * Framework-free; React subscribes through `subscribe` / `version`.
  */
-import type { Song } from "../project/song";
+import type { Song } from "./song";
 
 export class Player {
   readonly audio = new Audio();

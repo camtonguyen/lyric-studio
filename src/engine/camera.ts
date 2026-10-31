@@ -1,9 +1,9 @@
 /** Virtual camera: follows the cursor, cuts between shots, pulls back for the ending. */
 import { GUTTER, H, LINE_H, TOP, W } from "./constants";
 import { metrics } from "./fonts";
-import { DEG, ease, lerp, mul, perspective, prog, rotX, rotY, rotZ, scale, toGL, translate } from "./math";
+import { DEG, ease, lerp, mul, perspective, prog, rotX, rotY, rotZ, scale, toGL, translate } from "../shared/math";
 import { activeLineIndex, typedCount, type Model } from "./model";
-import { hasGitLog } from "../project/template";
+import { hasGitLog } from "../shared/template";
 
 export interface Camera {
   zoom: number; rx: number; ry: number; rz: number;

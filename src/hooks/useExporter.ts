@@ -1,7 +1,7 @@
 import { useRef, useState, type RefObject } from "react";
 import type { Renderer } from "../engine";
 import { recordVideo } from "../export/recordVideo";
-import type { Player } from "../player/Player";
+import type { Player } from "../audio/Player";
 import { downloadBlob } from "../project/storage";
 
 export type ExportStatus =

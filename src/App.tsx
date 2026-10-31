@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { baseName, buildModel } from "./engine";
+import { buildModel } from "./engine";
+import { baseName } from "./shared/math";
 import { useExporter } from "./hooks/useExporter";
 import { useKeyboard } from "./hooks/useKeyboard";
 import { usePlayer } from "./hooks/usePlayer";

@@ -3,4 +3,3 @@ export { buildModel, activeLineIndex, collaboratorNames, type Model, type CodeLi
 export { loadCover } from "./lyricsView";
 export { loadFonts } from "./fonts";
 export { FPS, W, H } from "./constants";
-export { baseName, formatTime, round2 } from "./math";

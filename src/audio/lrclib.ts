@@ -1,4 +1,4 @@
-import { baseName } from "../engine/math";
+import { baseName } from "../shared/math";
 import type { Segment } from "./transcribe";
 
 interface Hit { duration: number; syncedLyrics: string | null }

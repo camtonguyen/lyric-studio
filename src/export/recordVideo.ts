@@ -1,6 +1,6 @@
 import { FPS } from "../engine";
 import type { Renderer } from "../engine";
-import type { Player } from "../player/Player";
+import type { Player } from "../audio/Player";
 
 const MIME_TYPES = [
   'video/mp4;codecs="avc1.640028,mp4a.40.2"',

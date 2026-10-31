@@ -2,7 +2,7 @@
  * Getting a song into the app: read the file once (length check, decode, loudness), then find
  * its lyrics from the first source that has them.
  */
-import { formatTime } from "../engine/math";
+import { formatTime } from "../shared/math";
 import { lookupLyrics } from "./lrclib";
 import { transcribe, type Segment } from "./transcribe";
 

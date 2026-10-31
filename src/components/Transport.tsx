@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { formatTime } from "../engine";
+import { formatTime } from "../shared/math";
 import type { ExportStatus } from "../hooks/useExporter";
 import { usePlayerValue } from "../hooks/usePlayer";
-import type { Player } from "../player/Player";
+import type { Player } from "../audio/Player";
 
 interface Props {
   player: Player;

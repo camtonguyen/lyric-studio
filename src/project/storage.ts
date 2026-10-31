@@ -1,4 +1,4 @@
-import { baseName } from "../engine/math";
+import { baseName } from "../shared/math";
 import { normalizeProject } from "./defaults";
 import type { Project } from "./types";
 
