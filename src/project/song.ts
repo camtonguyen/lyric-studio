@@ -29,7 +29,8 @@ const whisper: LyricSource = (song, onProgress) => transcribe(song, onProgress);
 function playableLength(file: File) {
   return new Promise<number>((done) => {
     const url = URL.createObjectURL(file), a = new Audio(url);
-    const end = (d: number) => { URL.revokeObjectURL(url); done(d); };
+    const end = (d: number) => { clearTimeout(timer); URL.revokeObjectURL(url); done(d); };
+    const timer = setTimeout(() => end(NaN), 10_000); // some odd files never load or error
     a.onloadedmetadata = () => end(a.duration);
     a.onerror = () => end(NaN);
   });

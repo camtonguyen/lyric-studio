@@ -43,7 +43,8 @@ export function removeLine(lines: LyricLine[], i: number): LyricLine[] {
   return lines.flatMap((l, k) => (k === i ? [] : k === i + 1 && gone.newVerse ? [{ ...l, newVerse: true }] : [l]));
 }
 
-/** Transcribed phrases → lines, with a verse break at every 7s+ pause; `audioStart` = song time at video 0. */
-export function linesFromSegments(segs: Segment[], audioStart: number): LyricLine[] {
+/** Transcribed phrases → lines (phrases before `audioStart` dropped), with a verse break at every 7s+ pause; `audioStart` = song time at video 0. */
+export function linesFromSegments(all: Segment[], audioStart: number): LyricLine[] {
+  const segs = all.filter((s) => s.start >= audioStart); // earlier phrases aren't in the video
   return segs.map((s, i) => ({ ...line(s.text, i > 0 && s.start - segs[i - 1].start > 7), start: round2(Math.max(0, s.start - audioStart)) }));
 }

@@ -14,5 +14,6 @@ console.assert(verseIndexes(removeLine(l, 3)).join() === "0,0,1,2", "first of ve
 console.assert(removeLine(l, 0)[0].text === "b", "first line");
 
 const s = linesFromSegments([{ start: 1, text: "x" }, { start: 3, text: "y" }, { start: 12, text: "z" }], 2);
-console.assert(s.map((x) => x.start).join() === "0,1,10" && s.map((x) => x.newVerse).join() === "false,false,true", "segments");
+console.assert(s.map((x) => x.start).join() === "1,10" && s.map((x) => x.newVerse).join() === "false,true", "segments");
 console.log("lines ok");
+console.assert(linesFromSegments([{ start: 1, text: "x" }, { start: 9, text: "y" }], 5).map((x) => `${x.text}${x.start}`).join() === "y4", "phrases before the video start are dropped");

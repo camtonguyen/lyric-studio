@@ -14,7 +14,7 @@ const TAIL = 1.5; // seconds kept after the last audible sound
 export const commentEnd = (s: Settings) => s.commentAt + (3 + s.comment.length) / s.typingSpeed;
 export const typingWindowEnd = (s: Settings) => (s.ending.enabled ? s.ending.at : s.duration);
 /** Earliest first-line start and latest last-line start. */
-const bounds = (s: Settings): [number, number] => [commentEnd(s) + 0.3, typingWindowEnd(s) - 0.4];
+const bounds = (s: Settings): [number, number] => [(s.template === "code" ? commentEnd(s) : 0) + 0.3, typingWindowEnd(s) - 0.4];
 const isSet = (v: number | null | undefined): v is number => v !== null && v !== undefined && Number.isFinite(v);
 
 /** Spread all lines evenly over the video (last verse after the git log). Clears ends. */

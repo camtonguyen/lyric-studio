@@ -1,4 +1,4 @@
-// Run: npx esbuild src/project/song.check.ts --bundle --platform=node --packages=external | node
+// Run: npx esbuild src/project/song.check.ts --bundle --platform=node --packages=external --format=esm | node --input-type=module
 import { findLyrics, type LyricSource, type Song } from "./song";
 
 const song = { file: { name: "x.mp3" }, duration: 10 } as Song;

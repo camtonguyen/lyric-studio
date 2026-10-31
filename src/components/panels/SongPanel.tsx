@@ -30,7 +30,7 @@ export function SongPanel({ player, actions }: { player: Player; actions: Projec
     try {
       const s = await importSong(file);
       player.load(s);
-      actions.fitToSong(s.duration);
+      actions.fitToSong(s.duration, true);
     } catch (e) { return fail(e); }
     await extract(true);
   }

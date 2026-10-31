@@ -1,6 +1,6 @@
 // Run: npx esbuild src/project/timing.check.ts --bundle --platform=node --packages=external | node
 import { EXAMPLE_PROJECT, exampleProject, normalizeProject } from "./defaults";
-import { fitDuration, resolveTimes, trimToLyrics } from "./timing";
+import { fitDuration, resolveTimes, spread, trimToLyrics } from "./timing";
 
 const p = exampleProject();
 console.assert(p.lines.every((l) => l.start !== null && l.end === null), "spread sets every start, clears ends");
@@ -34,3 +34,5 @@ console.assert(old.lines.length === 3 && old.lines[0].who === "x" && old.lines[1
 console.assert(normalizeProject(null).lines.length === EXAMPLE_PROJECT.lines.length, "empty input → example");
 console.log("timing ok");
 console.assert(normalizeProject({ lines: [null, { text: 5 }, { text: "ok" }] }).lines.length === 1, "malformed saved lines are dropped");
+const ap = { ...p, settings: { ...p.settings, template: "apple" as const } };
+console.assert(spread(ap)[0].start! < spread(p)[0].start!, "no comment line to wait for outside the code template");
