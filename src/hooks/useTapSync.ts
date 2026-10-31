@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { round2, type Model } from "../engine";
-import type { Player } from "../player/Player";
+import type { Model } from "../engine";
+import { round2 } from "../shared/math";
+import type { Player } from "../audio/Player";
 import type { ProjectActions } from "./useProject";
 
 /**

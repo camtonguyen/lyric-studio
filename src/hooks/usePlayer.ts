@@ -1,5 +1,5 @@
 import { useState, useSyncExternalStore } from "react";
-import { Player } from "../player/Player";
+import { Player } from "../audio/Player";
 
 /** One Player for the app's lifetime. */
 export function usePlayer() {

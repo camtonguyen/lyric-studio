@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { formatTime, round2, type Model } from "../engine";
+import type { Model } from "../engine";
+import { formatTime, round2 } from "../shared/math";
 import { usePlayerValue } from "../hooks/usePlayer";
 import type { ProjectActions } from "../hooks/useProject";
-import type { Player } from "../player/Player";
-import { hasGitLog } from "../project/template";
+import type { Player } from "../audio/Player";
+import { hasGitLog } from "../shared/template";
 import type { Project } from "../project/types";
 
 interface Props { project: Project; model: Model; actions: ProjectActions; player: Player; selected: number; onSelect(i: number): void }
@@ -95,7 +96,7 @@ export function Timeline({ project, model, actions, player, selected, onSelect }
       list.push({ kind: "ending", index: 0, x0: x - 5, x1: x + 5, y: 18, h: HEIGHT - 18 });
     }
     blocks.current = list;
-  }, [model, pps, width, selected, song, s.audioStart]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [model, pps, width, selected, song, s.audioStart]);
 
   // ---- interaction
   const pointer = (e: React.PointerEvent) => {

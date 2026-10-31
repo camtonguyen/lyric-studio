@@ -5,7 +5,7 @@
  */
 import { FONT, FONT_SIZE, GUTTER, LINE_H, TOP } from "./constants";
 import { metrics } from "./fonts";
-import { easeOut, lerp, prog } from "./math";
+import { easeOut, lerp, prog } from "../shared/math";
 import { typedCount, type Model } from "./model";
 import { cursorPoint, gitLogPoint } from "./camera";
 import type { Plane } from "./plane";

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { formatTime } from "../../engine";
+import { formatTime } from "../../shared/math";
 import { usePlayerValue } from "../../hooks/usePlayer";
 import type { ProjectActions } from "../../hooks/useProject";
-import type { Player } from "../../player/Player";
-import { findLyrics, importSong } from "../../project/song";
+import type { Player } from "../../audio/Player";
+import { findLyrics, importSong } from "../../audio/song";
 import { Section } from "../fields";
 
 interface Status { text: string; pct?: number; failed?: boolean }

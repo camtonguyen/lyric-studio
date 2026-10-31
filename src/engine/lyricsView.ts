@@ -3,7 +3,7 @@
  * sung lines turn white). Flat Canvas 2D, drawn straight onto the output (no 3D plane).
  */
 import { H, W } from "./constants";
-import { easeOut, formatTime, lerp, prog } from "./math";
+import { easeOut, formatTime, lerp, prog } from "../shared/math";
 import type { Model } from "./model";
 
 const LOOK = {

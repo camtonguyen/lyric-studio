@@ -5,10 +5,10 @@
  */
 import { EDITOR_W, EXTRA_ROWS, GUTTER, LINE_H, TOP } from "./constants";
 import { metrics } from "./fonts";
-import { commentLine, lyricToCode, type Token } from "./lyrics";
-import { hashStr, rng } from "./math";
+import { commentLine, lyricToCode, type Token } from "../shared/lyrics";
+import { hashStr, rng } from "../shared/math";
 import { isLastInVerse, verseIndexes } from "../project/lines";
-import { hasGitLog } from "../project/template";
+import { hasGitLog } from "../shared/template";
 import { commentEnd, resolveTimes } from "../project/timing";
 import type { Project, Settings } from "../project/types";
 

@@ -5,7 +5,7 @@
  */
 import { camera, cameraMatrix, cameraSpeed } from "./camera";
 import { FPS, H, LINE_H, TOP, W } from "./constants";
-import { clamp, prog } from "./math";
+import { clamp, prog } from "../shared/math";
 import type { Model } from "./model";
 import { drawLyricsView } from "./lyricsView";
 import { Plane } from "./plane";

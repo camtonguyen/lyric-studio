@@ -1,8 +1,9 @@
 import { useMemo } from "react";
-import { activeLineIndex, collaboratorNames, round2, type Model } from "../../engine";
+import { activeLineIndex, collaboratorNames, type Model } from "../../engine";
+import { round2 } from "../../shared/math";
 import { usePlayerValue } from "../../hooks/usePlayer";
 import type { ProjectActions } from "../../hooks/useProject";
-import type { Player } from "../../player/Player";
+import type { Player } from "../../audio/Player";
 import { spread } from "../../project/timing";
 import type { Project } from "../../project/types";
 import { BlurInput, NumberField, NumberInput, Section } from "../fields";
