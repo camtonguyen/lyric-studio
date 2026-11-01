@@ -1,19 +1,12 @@
 /** Turns plain lyric lines into colourful "code". */
 
+import { SYNTAX } from "./theme";
+
 export type Token = [text: string, color: string | null];
 
 const CONJUNCTIONS = new Set(["and", "but", "so", "because", "if", "or", "just", "when", "cause", "then"]);
 
-const COLORS = {
-  punct: "#767c86",
-  conj: "#ff4436",
-  i: "#ff3b30",
-  you: "#ffb347",
-  arg: "#f2c46c",
-  method: "#8db5ff",
-  word: "#c3cede",
-  comment: "#e2b366",
-};
+const COLORS = SYNTAX;
 
 /** "the kettle and the city" → "  .the.kettle.and.the(city)" */
 export function lyricToCode(raw: string, lastInVerse: boolean) {

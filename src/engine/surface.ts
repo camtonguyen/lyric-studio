@@ -6,12 +6,12 @@
 import { FONT, FONT_SIZE, GUTTER, LINE_H, TOP } from "./constants";
 import { metrics } from "./fonts";
 import { easeOut, lerp, prog } from "../shared/math";
+import { CODE } from "../shared/theme";
 import { typedCount, type Model } from "./model";
 import { cursorPoint, gitLogPoint } from "./camera";
 import type { Plane } from "./plane";
 
-const BG = "#0e0f11";
-const BG_ACTIVE = "#15161a";
+const { bg: BG, bgActive: BG_ACTIVE } = CODE;
 
 /** Something drawn on top of the code, spanning surface rows y0..y1. */
 interface Deco { y0: number; y1: number; key: string; draw(c: CanvasRenderingContext2D): void }
@@ -67,7 +67,7 @@ export class Surface {
     const ended = s.ending.enabled && t > s.ending.at + 1.5;
     const mx = GUTTER + n * cw + 2, my = TOP + row * LINE_H + 15;
     if (busy || ended || Math.floor(t * 1.9) % 2 === 0) decos.push(cursor(mx, my, st.cursorColor, `c${row},${n}`));
-    if (t > m.joinAt) decos.push(tag(s.author, mx + 10, my - 40, st.cursorColor, "#170606", `ct${row},${n}`));
+    if (t > m.joinAt) decos.push(tag(s.author, mx + 10, my - 40, st.cursorColor, CODE.cursorTagText, `ct${row},${n}`));
 
     // collaborator cursor
     if (collab && t > m.joinAt + 0.6) {
@@ -75,7 +75,7 @@ export class Surface {
       const cn = t < collab.t0 ? m.lines[r].text.length : typedCount(collab, t);
       const cx = GUTTER + cn * cw + 2, cy = TOP + r * LINE_H + 15;
       decos.push(cursor(cx, cy, st.collaboratorColor, `y${r},${cn}`));
-      decos.push(tag(collab.who, cx + 10, cy + 72, st.collaboratorColor, "#1a1300", `yt${r},${cn},${collab.who}`));
+      decos.push(tag(collab.who, cx + 10, cy + 72, st.collaboratorColor, CODE.collabTagText, `yt${r},${cn},${collab.who}`));
     }
 
     // "x joined the session" toast
@@ -108,16 +108,16 @@ export class Surface {
     const c = this.tabStrip.getContext("2d")!, s = m.settings, k = this.plane.texScale;
     c.setTransform(k, 0, 0, k, 0, 0);
     c.fillStyle = BG; c.fillRect(0, 0, m.editorW, TOP);
-    c.fillStyle = "#08090a"; c.fillRect(0, 0, m.editorW, 110);
-    c.fillStyle = "#1b1c20"; c.fillRect(0, 108, m.editorW, 2);
+    c.fillStyle = CODE.tabBar; c.fillRect(0, 0, m.editorW, 110);
+    c.fillStyle = CODE.tabBorder; c.fillRect(0, 108, m.editorW, 2);
     c.font = `500 36px ${FONT}`;
     const fw = c.measureText(s.fileName).width, tw = fw + 126;
     c.fillStyle = BG; c.fillRect(30, 0, tw, 110);
     c.fillStyle = s.style.cursorColor; c.fillRect(30, 0, tw, 5);
-    c.fillStyle = "#9aa1ab"; c.textBaseline = "middle"; c.fillText(s.fileName, 74, 57);
-    c.fillStyle = "#d9dde3"; c.beginPath(); c.arc(74 + fw + 30, 57, 8, 0, Math.PI * 2); c.fill();
+    c.fillStyle = CODE.tabName; c.textBaseline = "middle"; c.fillText(s.fileName, 74, 57);
+    c.fillStyle = CODE.tabDot; c.beginPath(); c.arc(74 + fw + 30, 57, 8, 0, Math.PI * 2); c.fill();
     if (st.tabMessageAlpha > 0) {
-      c.globalAlpha = st.tabMessageAlpha; c.font = `500 30px ${FONT}`; c.fillStyle = "#8c929b";
+      c.globalAlpha = st.tabMessageAlpha; c.font = `500 30px ${FONT}`; c.fillStyle = CODE.tabMessage;
       c.fillText(s.tabMessage, 30 + tw + 50, 57); c.globalAlpha = 1;
     }
     this.plane.upload(0, this.tabStrip);
@@ -131,7 +131,7 @@ export class Surface {
     if (row < m.lines.length) {
       const line = m.lines[row], n = typedCount(line, t);
       c.textBaseline = "middle";
-      c.font = `500 30px ${FONT}`; c.fillStyle = "#34373d"; c.globalAlpha = n > 0 || row === 0 ? 1 : 0.35;
+      c.font = `500 30px ${FONT}`; c.fillStyle = CODE.lineNumber; c.globalAlpha = n > 0 || row === 0 ? 1 : 0.35;
       c.textAlign = "right"; c.fillText(String(row + 1), 100, mid + 2); c.textAlign = "left"; c.globalAlpha = 1;
       c.font = `800 ${FONT_SIZE}px ${FONT}`;
       let left = n, x = GUTTER;
@@ -180,31 +180,31 @@ function toast(c: CanvasRenderingContext2D, text: string, y: number, alpha: numb
   c.globalAlpha = alpha;
   c.font = `500 30px ${FONT}`;
   roundRect(c, GUTTER, y, c.measureText(text).width + 84, 64, 12);
-  c.fillStyle = "#17181c"; c.fill();
-  c.strokeStyle = "#23252a"; c.lineWidth = 2; c.stroke();
+  c.fillStyle = CODE.gitBox; c.fill();
+  c.strokeStyle = CODE.gitBoxBorder; c.lineWidth = 2; c.stroke();
   c.fillStyle = dot; c.beginPath(); c.arc(GUTTER + 34, y + 32, 8, 0, Math.PI * 2); c.fill();
-  c.fillStyle = "#c9ced6"; c.textBaseline = "middle"; c.fillText(text, GUTTER + 58, y + 33);
+  c.fillStyle = CODE.gitText; c.textBaseline = "middle"; c.fillText(text, GUTTER + 58, y + 33);
 }
 
 function gitLog(c: CanvasRenderingContext2D, m: Model, p: { x: number; y: number }, on: number, entryAlpha: number[], counterAlpha: number, year: number) {
   const g = m.settings.gitLog;
   c.textBaseline = "alphabetic";
   c.globalAlpha = on;
-  c.font = `500 28px ${FONT}`; c.fillStyle = "#5d626b"; c.fillText(g.command, p.x, p.y + 28);
+  c.font = `500 28px ${FONT}`; c.fillStyle = CODE.gitCommand; c.fillText(g.command, p.x, p.y + 28);
   m.gitEntries.forEach((e, i) => {
     c.globalAlpha = on * entryAlpha[i];
     const y = p.y + 100 + i * 64;
     let x = p.x - (1 - entryAlpha[i]) * 30;
-    const base = e.hot ? "#ff3d33" : "#c8cdd5";
+    const base = e.hot ? CODE.hot : CODE.cold;
     c.font = `500 36px ${FONT}`; c.fillStyle = base; c.fillText("•", x, y); x += 44;
-    c.font = `800 36px ${FONT}`; c.fillStyle = e.hot ? base : "#eef1f5"; c.fillText(e.year, x, y); x += c.measureText(e.year).width + 22;
+    c.font = `800 36px ${FONT}`; c.fillStyle = e.hot ? base : CODE.year; c.fillText(e.year, x, y); x += c.measureText(e.year).width + 22;
     c.font = `500 36px ${FONT}`; c.fillStyle = base; c.fillText(e.text, x, y); x += c.measureText(e.text).width + 18;
-    if (e.note) { c.font = `500 30px ${FONT}`; c.fillStyle = "#7f858e"; c.fillText(e.note, x, y); }
+    if (e.note) { c.font = `500 30px ${FONT}`; c.fillStyle = CODE.muted; c.fillText(e.note, x, y); }
   });
   c.globalAlpha = on * counterAlpha;
   const y = p.y + 190 + m.gitEntries.length * 64;
-  c.font = `800 92px ${FONT}`; c.fillStyle = "#ff2d2d"; c.fillText(String(year), p.x, y);
+  c.font = `800 92px ${FONT}`; c.fillStyle = CODE.counter; c.fillText(String(year), p.x, y);
   const w = c.measureText(String(year)).width;
-  c.font = `500 30px ${FONT}`; c.fillStyle = "#7f858e"; c.fillText(g.counterLabel, p.x + w + 44, y);
+  c.font = `500 30px ${FONT}`; c.fillStyle = CODE.muted; c.fillText(g.counterLabel, p.x + w + 44, y);
 }
 

@@ -5,7 +5,7 @@ import { Check, ColorField, NumberField, Section, Slider, TextField } from "../f
 
 interface P { s: Settings; actions: ProjectActions; lineCount: number }
 
-const TEMPLATES: [Template, string][] = [["code", "Code editor"], ["apple", "Apple Music lyrics"], ["spotify", "Spotify lyrics"]];
+const TEMPLATES: [Template, string][] = [["code", "Code editor"], ["apple", "Apple Music lyrics"], ["spotify", "Spotify lyrics"], ["cover", "Cover lyrics (flip)"]];
 
 /** Centre-crop to a 256px square JPEG so the data URL stays small in the project file. */
 async function pickCover(file: File | undefined, set: ProjectActions["setSettings"]) {

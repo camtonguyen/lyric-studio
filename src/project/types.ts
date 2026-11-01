@@ -6,7 +6,7 @@ export interface Project {
   settings: Settings;
 }
 
-export type Template = "code" | "apple" | "spotify";
+export type Template = "code" | "apple" | "spotify" | "cover";
 
 export interface Settings {
   template: Template;
