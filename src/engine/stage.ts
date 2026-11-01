@@ -1,6 +1,7 @@
 /** Ending title card + film look (vignette, grain). */
 import { FONT, H, W } from "./constants";
 import { rng } from "../shared/math";
+import { CODE } from "../shared/theme";
 import type { Settings } from "../project/types";
 
 function makeVignette() {
@@ -38,10 +39,10 @@ export class Stage {
     c.save();
     c.globalAlpha = alpha;
     c.textAlign = "center"; c.textBaseline = "middle";
-    c.font = `800 72px ${FONT}`; c.fillStyle = "#e6e8ec"; c.letterSpacing = "16px";
+    c.font = `800 72px ${FONT}`; c.fillStyle = CODE.endTitle; c.letterSpacing = "16px";
     c.fillText(s.ending.title, W / 2 + 8, H / 2 - 30);
-    c.fillStyle = "#3a3d44"; c.fillRect(W / 2 - 60, H / 2 + 30, 120, 2);
-    c.font = `500 26px ${FONT}`; c.fillStyle = "#7f858e"; c.letterSpacing = "3px";
+    c.fillStyle = CODE.endRule; c.fillRect(W / 2 - 60, H / 2 + 30, 120, 2);
+    c.font = `500 26px ${FONT}`; c.fillStyle = CODE.muted; c.letterSpacing = "3px";
     c.fillText(s.ending.subtitle, W / 2, H / 2 + 80);
     c.restore();
   }

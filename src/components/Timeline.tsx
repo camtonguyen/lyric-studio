@@ -5,6 +5,7 @@ import { usePlayerValue } from "../hooks/usePlayer";
 import type { ProjectActions } from "../hooks/useProject";
 import type { Player } from "../audio/Player";
 import { hasGitLog } from "../shared/template";
+import { TIMELINE } from "../shared/theme";
 import type { Project } from "../project/types";
 
 interface Props { project: Project; model: Model; actions: ProjectActions; player: Player; selected: number; onSelect(i: number): void }
@@ -14,7 +15,7 @@ interface Block { kind: Kind; index: number; x0: number; x1: number; y: number; 
 interface Drag { block: Block; edge: boolean; t0: number; start: number; end: number; hadEnd: boolean }
 
 const HEIGHT = 132, PAD = 10;
-const COLORS: Record<Kind, [string, string]> = { line: ["#4a1c1a", "#c2413a"], comment: ["#3b3324", "#a1874f"], git: ["#3a2a55", "#7d5cc0"], ending: ["#5aa0ff", "#5aa0ff"] };
+const COLORS = TIMELINE.blocks as Record<Kind, [string, string]>;
 const r2 = (v: number) => round2(Math.max(0, v));
 
 /** Song waveform + draggable blocks for each line, the git log and the ending. */
@@ -54,11 +55,11 @@ export function Timeline({ project, model, actions, player, selected, onSelect }
     const c = cv.getContext("2d")!;
     c.setTransform(dpr, 0, 0, dpr, 0, 0);
     c.clearRect(0, 0, w, HEIGHT);
-    c.fillStyle = "#0d0e11"; c.fillRect(X(0), 18, s.duration * pps, HEIGHT - 18);
+    c.fillStyle = TIMELINE.track; c.fillRect(X(0), 18, s.duration * pps, HEIGHT - 18);
 
     const peaks = song?.peaks;
     if (peaks) {
-      c.fillStyle = "#262a33";
+      c.fillStyle = TIMELINE.grid;
       const step = Math.max(1, Math.floor(100 / pps));
       const o = Math.round(s.audioStart * 100);
       for (let i = o; i < peaks.length && (i - o) / 100 <= s.duration; i += step) {
@@ -66,7 +67,7 @@ export function Timeline({ project, model, actions, player, selected, onSelect }
         c.fillRect(X((i - o) / 100), 75 - v, Math.max(1, (step * pps) / 100), v * 2);
       }
     }
-    c.font = "11px system-ui"; c.fillStyle = "#6b7079"; c.textBaseline = "top";
+    c.font = "11px system-ui"; c.fillStyle = TIMELINE.tick; c.textBaseline = "top";
     const every = pps > 60 ? 1 : pps > 25 ? 2 : pps > 12 ? 5 : 10;
     for (let t = 0; t <= s.duration; t += every) { c.fillRect(X(t), 12, 1, 6); c.fillText(formatTime(t).replace(/\.00$/, ""), X(t) + 3, 1); }
 
@@ -81,13 +82,13 @@ export function Timeline({ project, model, actions, player, selected, onSelect }
       const sel = b.kind === "line" && b.index === selected;
       const [fill, stroke] = COLORS[b.kind];
       c.beginPath(); c.roundRect(b.x0, b.y, Math.max(4, b.x1 - b.x0), b.h, 5);
-      c.fillStyle = isCollab ? "#4a3d12" : fill; c.fill();
-      c.strokeStyle = sel ? "#ffc53a" : stroke; c.lineWidth = sel ? 2 : 1; c.stroke();
+      c.fillStyle = isCollab ? TIMELINE.collab : fill; c.fill();
+      c.strokeStyle = sel ? TIMELINE.selected : stroke; c.lineWidth = sel ? 2 : 1; c.stroke();
       c.save(); c.beginPath(); c.rect(b.x0, b.y, Math.max(4, b.x1 - b.x0), b.h); c.clip();
-      c.fillStyle = "#e8e2dc"; c.textBaseline = "middle";
+      c.fillStyle = TIMELINE.label; c.textBaseline = "middle";
       c.fillText(b.kind === "git" ? "git log" : b.kind === "comment" ? "// comment" : `${b.index + 1} ${model.lyrics[b.index].raw}`, b.x0 + 5, b.y + b.h / 2 + 1);
       c.restore();
-      c.fillStyle = "#ffffff55"; c.fillRect(b.x1 - 3, b.y + 6, 2, b.h - 12);
+      c.fillStyle = TIMELINE.handle; c.fillRect(b.x1 - 3, b.y + 6, 2, b.h - 12);
     }
     if (s.ending.enabled) {
       const x = X(s.ending.at);
